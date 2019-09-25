@@ -1,17 +1,11 @@
 const set = require('lodash/set');
 
-const db = {
-    user: {
-        'id': {}
-    }
-};
+const db = {};
 
-const idsMap = {
-    users: 0,
-};
+const idsMap = {};
 
 const getNextId = entityName => {
-    const nextId = idsMap[entityName] || 0;
+    const nextId = (idsMap[entityName] || 0) + 1;
 
     idsMap[entityName] = nextId;
 
@@ -23,11 +17,17 @@ const buildAddFn = entityName => value => {
 
     set(db, `${entityName}.${id}`, value);
 
-    return id;
+    return {...value, id};
 };
 
 const buildGetFn = entityName => id => {
-    return db[entityName][id];
+    const entity = db[entityName][id];
+
+    if (!entity) {
+        return null;
+    }
+
+    return {...entity, id};
 };
 
 module.exports = {
