@@ -1,27 +1,27 @@
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-export const buildFindByIdQueries = ({entities, outputTypes, buildGetFn}) => {
-    return entities
-        .map(entity => {
-            const type = outputTypes[entity.name];
+export const buildFindByIdQueries = ({ entities, outputTypes, buildGetFn }) => {
+  return entities
+    .map(entity => {
+      const type = outputTypes[entity.name];
 
-            const get = buildGetFn(entity.name);
+      const get = buildGetFn(entity.name);
 
-            return {
-                [entity.name]: {
-                    type,
-                    resolve: (_, {id}) => {
-                        return get(id);
-                    },
-                    args: {
-                        id: {
-                            type: GraphQLNonNull(GraphQLID),
-                        }
-                    }
-                }
+      return {
+        [entity.name]: {
+          type,
+          resolve: (_, { id }) => {
+            return get(id);
+          },
+          args: {
+            id: {
+              type: GraphQLNonNull(GraphQLID)
             }
-        })
-        .reduce((acc, obj) => {
-            return {...acc, ...obj};
-        }, {});
+          }
+        }
+      };
+    })
+    .reduce((acc, obj) => {
+      return { ...acc, ...obj };
+    }, {});
 };

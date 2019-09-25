@@ -5,32 +5,32 @@ const db = {};
 const idsMap = {};
 
 const getNextId = entityName => {
-    const nextId = (idsMap[entityName] || 0) + 1;
+  const nextId = (idsMap[entityName] || 0) + 1;
 
-    idsMap[entityName] = nextId;
+  idsMap[entityName] = nextId;
 
-    return nextId;
+  return nextId;
 };
 
 const buildAddFn = entityName => value => {
-    const id = getNextId(entityName);
+  const id = getNextId(entityName);
 
-    set(db, `${entityName}.${id}`, value);
+  set(db, `${entityName}.${id}`, value);
 
-    return {...value, id};
+  return { ...value, id };
 };
 
 const buildGetFn = entityName => id => {
-    const entity = db[entityName][id];
+  const entity = db[entityName][id];
 
-    if (!entity) {
-        return null;
-    }
+  if (!entity) {
+    return null;
+  }
 
-    return {...entity, id};
+  return { ...entity, id };
 };
 
 export default {
-    buildAddFn,
-    buildGetFn,
+  buildAddFn,
+  buildGetFn
 };

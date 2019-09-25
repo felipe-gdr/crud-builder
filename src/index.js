@@ -6,10 +6,13 @@ import database from './database';
 const app = express();
 const port = 3000;
 
-app.use('/graphql', graphqlHTTP({
+app.use(
+  '/graphql',
+  graphqlHTTP({
     schema: buildSchema(database),
     // rootValue: root,
-    graphiql: true,
-}));
+    graphiql: true
+  })
+);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
