@@ -1,4 +1,4 @@
-const set = require('lodash/set');
+import set from 'lodash/set';
 
 const db = {};
 
@@ -30,7 +30,7 @@ const buildGetFn = entityName => id => {
     return {...entity, id};
 };
 
-module.exports = {
+export default {
     buildAddFn,
     buildGetFn,
 };

@@ -1,6 +1,6 @@
-const camelCase = require('lodash/camelCase');
+import camelCase from 'lodash/camelCase';
 
-const buildAddMutations = ({entities, inputTypes, outputTypes, buildAddFn}) => {
+export const buildAddMutations = ({entities, inputTypes, outputTypes, buildAddFn}) => {
     return entities
         .map(entity => {
             const {name} = entity;
@@ -27,8 +27,4 @@ const buildAddMutations = ({entities, inputTypes, outputTypes, buildAddFn}) => {
         .reduce((acc, obj) => {
             return {...acc, ...obj};
         }, {});
-};
-
-module.exports = {
-    buildAddMutations,
 };

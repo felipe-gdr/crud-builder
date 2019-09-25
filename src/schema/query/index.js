@@ -1,9 +1,6 @@
-const {
-    GraphQLID,
-    GraphQLNonNull,
-} = require('graphql');
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-const buildFindByIdQueries = ({entities, outputTypes, buildGetFn}) => {
+export const buildFindByIdQueries = ({entities, outputTypes, buildGetFn}) => {
     return entities
         .map(entity => {
             const type = outputTypes[entity.name];
@@ -27,8 +24,4 @@ const buildFindByIdQueries = ({entities, outputTypes, buildGetFn}) => {
         .reduce((acc, obj) => {
             return {...acc, ...obj};
         }, {});
-};
-
-module.exports = {
-    buildFindByIdQueries,
 };

@@ -1,11 +1,7 @@
-const {
-    GraphQLSchema,
-    GraphQLObjectType,
-} = require('graphql');
-
-const {buildOutputTypes, buildInputTypes} = require('./type');
-const {buildFindByIdQueries} = require('./query');
-const {buildAddMutations} = require('./mutation');
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+import { buildOutputTypes, buildInputTypes } from './type';
+import { buildFindByIdQueries } from './query';
+import { buildAddMutations } from './mutation';
 
 const mockModel = {
     entities: [
@@ -24,7 +20,7 @@ const {entities} = mockModel;
 const outputTypes = buildOutputTypes(entities);
 const inputTypes = buildInputTypes(entities);
 
-const buildSchema = database => {
+export const buildSchema = database => {
     const {buildGetFn, buildAddFn} = database;
     const queryFields = buildFindByIdQueries({entities, outputTypes, buildGetFn});
     const mutationFields = buildAddMutations({entities, outputTypes, inputTypes, buildAddFn});
@@ -40,5 +36,3 @@ const buildSchema = database => {
         }),
     });
 };
-
-module.exports = {buildSchema};

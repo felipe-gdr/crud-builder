@@ -1,20 +1,13 @@
-const {
-    GraphQLObjectType,
-    GraphQLInputObjectType,
-    GraphQLID,
-    GraphQLNonNull,
-} = require('graphql');
-
-const capitalize = require('lodash/capitalize');
-const camelCase = require('lodash/camelCase');
-
-const {buildFields} = require('./fields');
+import { GraphQLObjectType, GraphQLInputObjectType, GraphQLID, GraphQLNonNull } from 'graphql';
+import capitalize from 'lodash/capitalize';
+import camelCase from 'lodash/camelCase';
+import { buildFields } from './fields';
 
 const getIdTypeDef = () => ({
     id: {type: GraphQLNonNull(GraphQLID)},
 });
 
-const buildOutputTypes = entities => {
+export const buildOutputTypes = entities => {
     return entities
         .map(entity => {
             const fields = buildFields(entity.fields);
@@ -29,7 +22,7 @@ const buildOutputTypes = entities => {
         .reduce((acc, obj) => ({...acc, ...obj}));
 };
 
-const buildInputTypes = entities => {
+export const buildInputTypes = entities => {
     return entities
         .map(entity => {
             const fields = buildFields(entity.fields);
@@ -48,7 +41,3 @@ const buildInputTypes = entities => {
         .reduce((acc, obj) => ({...acc, ...obj}));
 };
 
-module.exports = {
-    buildInputTypes,
-    buildOutputTypes
-};

@@ -1,8 +1,7 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-
-const {buildSchema} = require('./schema');
-const database = require('./database');
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildSchema } from './schema';
+import database from './database';
 
 const app = express();
 const port = 3000;
