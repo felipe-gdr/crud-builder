@@ -7,12 +7,13 @@ import {
 import capitalize from 'lodash/capitalize';
 import camelCase from 'lodash/camelCase';
 import { buildFields } from './fields';
+import { EntitiesModel } from '../../common/types';
 
 const getIdTypeDef = () => ({
   id: { type: GraphQLNonNull(GraphQLID) }
 });
 
-export const buildOutputTypes = entities => {
+export const buildOutputTypes = (entities: EntitiesModel) => {
   return entities
     .map(entity => {
       const fields = buildFields(entity.fields);
@@ -27,7 +28,7 @@ export const buildOutputTypes = entities => {
     .reduce((acc, obj) => ({ ...acc, ...obj }));
 };
 
-export const buildInputTypes = entities => {
+export const buildInputTypes = (entities: EntitiesModel) => {
   return entities
     .map(entity => {
       const fields = buildFields(entity.fields);

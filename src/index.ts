@@ -1,7 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { buildSchema } from './schema';
-import database from './database';
+import * as database from './database';
 
 const app = express();
 const port = 3000;

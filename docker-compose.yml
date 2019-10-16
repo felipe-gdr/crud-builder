@@ -1,0 +1,10 @@
+version: '3'
+services:
+  neo4j:
+    image: neo4j:3.5.11
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./.db-files/data:/data
+      - ./.db-files/logs:/logs

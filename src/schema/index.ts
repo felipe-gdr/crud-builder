@@ -2,8 +2,9 @@ import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import { buildOutputTypes, buildInputTypes } from './type';
 import { buildFindByIdQueries } from './query';
 import { buildAddMutations } from './mutation';
+import { Database, RootModel } from '../common/types';
 
-const mockModel = {
+const mockModel: RootModel = {
   entities: [
     {
       name: 'user',
@@ -20,12 +21,12 @@ const { entities } = mockModel;
 const outputTypes = buildOutputTypes(entities);
 const inputTypes = buildInputTypes(entities);
 
-export const buildSchema = database => {
-  const { buildGetFn, buildAddFn } = database;
+export const buildSchema = (database: Database): GraphQLSchema => {
+  const { buildGetByIdFn, buildAddFn } = database;
   const queryFields = buildFindByIdQueries({
     entities,
     outputTypes,
-    buildGetFn
+    buildGetByIdFn
   });
   const mutationFields = buildAddMutations({
     entities,

@@ -1,0 +1,28 @@
+{
+  "user-input": {
+    "id": "123",
+    "name": "Felipe",
+    "email": "felipe.gdr@gmail.com",
+    "address": {
+      "street": "Muller Lane",
+      "number": "2",
+      "cityId": "123",
+      "zipCode": "123"
+    },
+    "user-output": {
+      "id": "123",
+      "name": "Felipe",
+      "email": "felipe.gdr@gmail.com",
+      "address": {
+        "street": "Muller Lane",
+        "number": "2",
+        "zipCode": "123",
+        "city": {
+          "id": "123",
+          "name": "Sidney",
+          "state": "NSW"
+        }
+      }
+    }
+  }
+}

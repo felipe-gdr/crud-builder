@@ -1,11 +1,11 @@
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-export const buildFindByIdQueries = ({ entities, outputTypes, buildGetFn }) => {
+export const buildFindByIdQueries = ({ entities, outputTypes, buildGetByIdFn }) => {
   return entities
     .map(entity => {
       const type = outputTypes[entity.name];
 
-      const get = buildGetFn(entity.name);
+      const get = buildGetByIdFn(entity.name);
 
       return {
         [entity.name]: {
