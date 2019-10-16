@@ -7,7 +7,7 @@ import {
 import camelCase from 'lodash/camelCase';
 import capitalize from 'lodash/capitalize';
 import { EntitiesModel } from '../../common/types';
-import { buildFields } from './fields';
+import { buildFields, buildRelationshipsInputTypes } from './fields';
 
 const getIdTypeDef = () => ({
   id: { type: GraphQLNonNull(GraphQLID) },
@@ -31,10 +31,13 @@ export const buildOutputTypes = (entities: EntitiesModel) => {
 export const buildInputTypes = (entities: EntitiesModel) => {
   return entities
     .map((entity) => {
-      const fields = buildFields(entity.fields);
+      const regularFields = buildFields(entity.fields);
+      const relationshipFields = buildRelationshipsInputTypes(entity.relationships);
+
+      const fields = {...regularFields, ...relationshipFields };
 
       const type = new GraphQLInputObjectType({
-        fields: { ...fields },
+        fields: { ...fields},
         // TODO: extract name formation into its own function
         name: capitalize(camelCase(entity.name)) + 'Input',
       });

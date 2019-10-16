@@ -10,11 +10,33 @@ const port = 3000;
 const mockModel: RootModel = {
   entities: [
     {
+      name: 'user',
       fields: {
         email: 'string',
         name: 'string',
       },
-      name: 'user',
+      relationships: [
+        {
+          type: 'one-to-many',
+          to: 'todo',
+          description: 'owns',
+        },
+      ],
+    },
+    {
+      name: 'todo',
+      fields: {
+        title: 'string',
+        description: 'string',
+      },
+      relationships: [
+        {
+          type: 'many-to-one',
+          to: 'user',
+          required: true,
+          description: 'owned by',
+        },
+      ],
     },
   ],
 };

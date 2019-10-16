@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json --format verbose 'src/**/*.ts'",
     "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'"
   }
 }

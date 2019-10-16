@@ -11,11 +11,13 @@ const outputTypes = buildOutputTypes(entities);
 
 const inputTypes = buildInputTypes(entities);
 const { buildGetByIdFn, buildAddFn } = database;
+
 const queryFields = buildFindByIdQueries({
     buildGetByIdFn,
     entities,
     outputTypes,
   });
+
 const mutationFields = buildAddMutations({
     buildAddFn,
     entities,
