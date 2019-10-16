@@ -4,10 +4,10 @@ export const buildAddMutations = ({
   entities,
   inputTypes,
   outputTypes,
-  buildAddFn
+  buildAddFn,
 }) => {
   return entities
-    .map(entity => {
+    .map((entity) => {
       const { name } = entity;
 
       const mutationName = camelCase(`add-${name}`);
@@ -17,16 +17,16 @@ export const buildAddMutations = ({
 
       return {
         [mutationName]: {
-          type: outputType,
           args: {
             input: {
-              type: inputType
-            }
+              type: inputType,
+            },
           },
           resolve: (_, { input }) => {
             return add(input);
-          }
-        }
+          },
+          type: outputType,
+        },
       };
     })
     .reduce((acc, obj) => {

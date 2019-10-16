@@ -13,12 +13,12 @@ const password = process.env.NEO4J_PASSWORD;
 
 const getLabelName = (entityName: EntityName): Label => capitalize(entityName);
 
-let db = new Connection('bolt://localhost:7687', {
-    username: user,
+const db = new Connection('bolt://localhost:7687', {
     password,
+    username: user,
 });
 
-export const buildAddFn: BuildAddFn = entityName => async value => {
+export const buildAddFn: BuildAddFn = (entityName) => async (value) => {
     const id = uuid.v1();
     const obj = {...value, id};
 
@@ -29,7 +29,7 @@ export const buildAddFn: BuildAddFn = entityName => async value => {
     return obj;
 };
 
-export const buildGetByIdFn: BuildGetByIdFn = entityName => async id => {
+export const buildGetByIdFn: BuildGetByIdFn = (entityName) => async (id) => {
     const result = await db
         .matchNode(entityName, getLabelName(entityName), { id })
         .return(entityName)
@@ -39,4 +39,3 @@ export const buildGetByIdFn: BuildGetByIdFn = entityName => async id => {
         return result[0][entityName].properties;
     }
 };
-

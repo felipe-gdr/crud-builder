@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		// Target latest version of ECMAScript.
+		"target": "esnext",
+		// commonjs is compatible with NodeJs
+		"module": "commonjs",
+		// Search under node_modules for non-relative imports.
+		"moduleResolution": "node",
+		// Process & infer types from .js files.
+		"allowJs": true,
+		// Emit files to 'build' directory
+		"noEmit": false,
+		"outDir": "build",
+		// Don't be strict (yet) 
+		"strict": false,
+		// Disallow features that require cross-file information for emit.
+		"isolatedModules": true,
+		// Import non-ES modules as default imports.
+		"esModuleInterop": true,
+		"sourceMap": true
+	},
+	"include": [
+		"src"
+	]
+}

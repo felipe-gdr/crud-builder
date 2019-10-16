@@ -1,16 +1,16 @@
-import { GraphQLString, GraphQLBoolean } from 'graphql';
+import { GraphQLBoolean, GraphQLString } from 'graphql';
 import { FieldsModel } from '../../common/types';
 
 const typeMap = {
+  boolean: GraphQLBoolean,
   string: GraphQLString,
-  boolean: GraphQLBoolean
 };
 
 export const buildFields = (fields: FieldsModel) =>
   Object.keys(fields)
-    .map(key => ({
+    .map((key) => ({
       [key]: {
-        type: typeMap[fields[key]]
-      }
+        type: typeMap[fields[key]],
+      },
     }))
     .reduce((acc, obj) => ({ ...acc, ...obj }));

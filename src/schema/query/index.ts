@@ -2,23 +2,23 @@ import { GraphQLID, GraphQLNonNull } from 'graphql';
 
 export const buildFindByIdQueries = ({ entities, outputTypes, buildGetByIdFn }) => {
   return entities
-    .map(entity => {
+    .map((entity) => {
       const type = outputTypes[entity.name];
 
       const get = buildGetByIdFn(entity.name);
 
       return {
         [entity.name]: {
-          type,
+          args: {
+            id: {
+              type: GraphQLNonNull(GraphQLID),
+            },
+          },
           resolve: (_, { id }) => {
             return get(id);
           },
-          args: {
-            id: {
-              type: GraphQLNonNull(GraphQLID)
-            }
-          }
-        }
+          type,
+        },
       };
     })
     .reduce((acc, obj) => {

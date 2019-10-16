@@ -1,26 +1,26 @@
 import {
-  GraphQLObjectType,
-  GraphQLInputObjectType,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLInputObjectType,
+  GraphQLNonNull,
+  GraphQLObjectType,
 } from 'graphql';
-import capitalize from 'lodash/capitalize';
 import camelCase from 'lodash/camelCase';
-import { buildFields } from './fields';
+import capitalize from 'lodash/capitalize';
 import { EntitiesModel } from '../../common/types';
+import { buildFields } from './fields';
 
 const getIdTypeDef = () => ({
-  id: { type: GraphQLNonNull(GraphQLID) }
+  id: { type: GraphQLNonNull(GraphQLID) },
 });
 
 export const buildOutputTypes = (entities: EntitiesModel) => {
   return entities
-    .map(entity => {
+    .map((entity) => {
       const fields = buildFields(entity.fields);
 
       const type = new GraphQLObjectType({
+        fields: { ...fields, ...getIdTypeDef() },
         name: capitalize(entity.name),
-        fields: { ...fields, ...getIdTypeDef() }
       });
 
       return { [entity.name]: type };
@@ -30,13 +30,13 @@ export const buildOutputTypes = (entities: EntitiesModel) => {
 
 export const buildInputTypes = (entities: EntitiesModel) => {
   return entities
-    .map(entity => {
+    .map((entity) => {
       const fields = buildFields(entity.fields);
 
       const type = new GraphQLInputObjectType({
+        fields: { ...fields },
         // TODO: extract name formation into its own function
         name: capitalize(camelCase(entity.name)) + 'Input',
-        fields: { ...fields }
       });
 
       const nonNullType = GraphQLNonNull(type);

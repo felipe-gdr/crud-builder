@@ -1,48 +1,36 @@
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import { buildOutputTypes, buildInputTypes } from './type';
-import { buildFindByIdQueries } from './query';
-import { buildAddMutations } from './mutation';
+import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import { Database, RootModel } from '../common/types';
+import { buildAddMutations } from './mutation';
+import { buildFindByIdQueries } from './query';
+import { buildInputTypes, buildOutputTypes } from './type';
 
-const mockModel: RootModel = {
-  entities: [
-    {
-      name: 'user',
-      fields: {
-        name: 'string',
-        email: 'string'
-      }
-    }
-  ]
-};
-
-const { entities } = mockModel;
+export const buildSchema = (model: RootModel, database: Database): GraphQLSchema => {
+const { entities } = model;
 
 const outputTypes = buildOutputTypes(entities);
+
 const inputTypes = buildInputTypes(entities);
-
-export const buildSchema = (database: Database): GraphQLSchema => {
-  const { buildGetByIdFn, buildAddFn } = database;
-  const queryFields = buildFindByIdQueries({
+const { buildGetByIdFn, buildAddFn } = database;
+const queryFields = buildFindByIdQueries({
+    buildGetByIdFn,
     entities,
     outputTypes,
-    buildGetByIdFn
   });
-  const mutationFields = buildAddMutations({
+const mutationFields = buildAddMutations({
+    buildAddFn,
     entities,
-    outputTypes,
     inputTypes,
-    buildAddFn
+    outputTypes,
   });
 
-  return new GraphQLSchema({
-    query: new GraphQLObjectType({
-      name: 'RootQueryType',
-      fields: queryFields
-    }),
+return new GraphQLSchema({
     mutation: new GraphQLObjectType({
+      fields: mutationFields,
       name: 'RootMutationType',
-      fields: mutationFields
-    })
+    }),
+    query: new GraphQLObjectType({
+      fields: queryFields,
+      name: 'RootQueryType',
+    }),
   });
 };

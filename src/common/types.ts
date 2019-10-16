@@ -10,24 +10,24 @@ export type GetByIdFn = (id: ID) => Promise<OutputValue>;
 export type BuildGetByIdFn = (entityName: EntityName) => GetByIdFn;
 
 export type Database = {
-    buildAddFn: BuildAddFn,
-    buildGetByIdFn: BuildGetByIdFn,
-}
+    buildAddFn: BuildAddFn;
+    buildGetByIdFn: BuildGetByIdFn;
+};
 
 // Model
 export type FieldType = 'string' | 'integer' | 'float' | 'boolean';
 
 export type FieldsModel = {
-  [fieldName: string]: FieldType,
-}
+  [fieldName: string]: FieldType;
+};
 
 export type EntityModel = {
-  name: EntityName,
-  fields: FieldsModel,
+  name: EntityName;
+  fields: FieldsModel;
 };
 
 export type EntitiesModel = EntityModel[];
 
 export type RootModel = {
   entities: EntitiesModel;
-}
+};

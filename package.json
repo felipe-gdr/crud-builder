@@ -22,12 +22,15 @@
     "@babel/core": "^7.6.2",
     "@babel/node": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
     "jest": "^24.9.0",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   },
   "scripts": {
-    "start": "babel-node src/index.js",
-    "lint": "prettier --check 'src/**/*.js'",
-    "lint:fix": "prettier --write 'src/**/*.js'"
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'"
   }
 }
